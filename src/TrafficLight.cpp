@@ -96,9 +96,7 @@ void TrafficLight::cycleThroughPhases() {
             startTime = std::chrono::system_clock::now();
 
             std::default_random_engine generator;
-            auto number = distribution(random_engine);
-            std::cout << "number:" << number << '\n';
-            cycleDuration = std::chrono::milliseconds{number};
+            cycleDuration = std::chrono::milliseconds{distribution(random_engine)};
 
             _queue.send(std::move(_currentPhase));
         }
