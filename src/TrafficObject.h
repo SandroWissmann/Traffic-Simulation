@@ -13,21 +13,27 @@ enum ObjectType {
 };
 
 class TrafficObject {
-  public:
+public:
     // constructor / desctructor
     TrafficObject();
     ~TrafficObject();
 
     // getter and setter
-    int getID() { return _id; }
+    int getID()
+    {
+        return _id;
+    }
     void setPosition(double x, double y);
-    void getPosition(double &x, double &y);
-    ObjectType getType() { return _type; }
+    void getPosition(double& x, double& y);
+    ObjectType getType()
+    {
+        return _type;
+    }
 
     // typical behaviour methods
     virtual void simulate(){};
 
-  protected:
+protected:
     ObjectType _type;    // identifies the class type
     int _id;             // every traffic object has its own unique id
     double _posX, _posY; // vehicle position in pixels
@@ -36,7 +42,7 @@ class TrafficObject {
     static std::mutex
         _mtx; // mutex shared by all traffic objects for protecting cout
 
-  private:
+private:
     static int _idCnt; // global variable for counting object ids
 };
 

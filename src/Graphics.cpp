@@ -5,7 +5,8 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
-void Graphics::simulate() {
+void Graphics::simulate()
+{
     this->loadBackgroundImg();
     while (true) {
         // sleep at every iteration to reduce CPU usage
@@ -16,7 +17,8 @@ void Graphics::simulate() {
     }
 }
 
-void Graphics::loadBackgroundImg() {
+void Graphics::loadBackgroundImg()
+{
     // create window
     _windowName = "Concurrency Traffic Simulation";
     cv::namedWindow(_windowName, cv::WINDOW_NORMAL);
@@ -31,7 +33,8 @@ void Graphics::loadBackgroundImg() {
             .clone()); // third element will be the result image for display
 }
 
-void Graphics::drawTrafficObjects() {
+void Graphics::drawTrafficObjects()
+{
     // reset images
     _images.at(1) = _images.at(0).clone();
     _images.at(2) = _images.at(0).clone();
@@ -54,7 +57,8 @@ void Graphics::drawTrafficObjects() {
                     : cv::Scalar(0, 0, 255);
             cv::circle(_images.at(1), cv::Point2d(posx, posy), 25,
                        trafficLightColor, -1);
-        } else if (it->getType() == ObjectType::objectVehicle) {
+        }
+        else if (it->getType() == ObjectType::objectVehicle) {
             cv::RNG rng(it->getID());
             int b = rng.uniform(0, 255);
             int g = rng.uniform(0, 255);

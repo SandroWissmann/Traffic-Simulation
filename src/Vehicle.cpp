@@ -4,14 +4,16 @@
 #include <iostream>
 #include <random>
 
-Vehicle::Vehicle() {
+Vehicle::Vehicle()
+{
     _currStreet = nullptr;
     _posStreet = 0.0;
     _type = ObjectType::objectVehicle;
     _speed = 400; // m/s
 }
 
-void Vehicle::setCurrentDestination(std::shared_ptr<Intersection> destination) {
+void Vehicle::setCurrentDestination(std::shared_ptr<Intersection> destination)
+{
     // update destination
     _currDestination = destination;
 
@@ -19,13 +21,15 @@ void Vehicle::setCurrentDestination(std::shared_ptr<Intersection> destination) {
     _posStreet = 0.0;
 }
 
-void Vehicle::simulate() {
+void Vehicle::simulate()
+{
     // launch drive function in a thread
     threads.emplace_back(std::thread(&Vehicle::drive, this));
 }
 
 // virtual function which is executed in a thread
-void Vehicle::drive() {
+void Vehicle::drive()
+{
     // print id of the current thread
     std::unique_lock<std::mutex> lck(_mtx);
     std::cout << "Vehicle #" << _id
@@ -107,7 +111,8 @@ void Vehicle::drive() {
                     std::uniform_int_distribution<> distr(
                         0, streetOptions.size() - 1);
                     nextStreet = streetOptions.at(distr(eng));
-                } else {
+                }
+                else {
                     // this street is a dead-end, so drive back the same way
                     nextStreet = _currStreet;
                 }

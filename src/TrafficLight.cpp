@@ -2,7 +2,8 @@
 #include <iostream>
 #include <random>
 
-template <typename T> T MessageQueue<T>::receive() {
+template <typename T> T MessageQueue<T>::receive()
+{
     // FP.5a : The method receive should use std::unique_lock<std::mutex> and
     // _condition.wait()
     // to wait for and receive new messages and pull them from the queue using
@@ -18,7 +19,8 @@ template <typename T> T MessageQueue<T>::receive() {
     return message;
 }
 
-template <typename T> void MessageQueue<T>::send(T &&message) {
+template <typename T> void MessageQueue<T>::send(T&& message)
+{
     // FP.4a : The method send should use the mechanisms
     // std::lock_guard<std::mutex>
     // as well as _condition.notify_one() to add a new message to the queue and
@@ -34,9 +36,12 @@ template <typename T> void MessageQueue<T>::send(T &&message) {
 
 template class MessageQueue<TrafficLightPhase>;
 
-TrafficLight::TrafficLight() : _currentPhase{TrafficLightPhase::red} {}
+TrafficLight::TrafficLight() : _currentPhase{TrafficLightPhase::red}
+{
+}
 
-void TrafficLight::waitForGreen() {
+void TrafficLight::waitForGreen()
+{
     // FP.5b : add the implementation of the method waitForGreen, in which an
     // infinite while-loop
     // runs and repeatedly calls the receive function on the message queue.
@@ -54,11 +59,13 @@ void TrafficLight::waitForGreen() {
     }
 }
 
-TrafficLightPhase TrafficLight::getCurrentPhase() const {
+TrafficLightPhase TrafficLight::getCurrentPhase() const
+{
     return _currentPhase;
 }
 
-void TrafficLight::simulate() {
+void TrafficLight::simulate()
+{
     // FP.2b : Finally, the private method „cycleThroughPhases“ should be
     // started in a thread when the public method „simulate“ is called.
     // To do this, use the thread queue in the base class.
@@ -66,7 +73,8 @@ void TrafficLight::simulate() {
 }
 
 // virtual function which is executed in a thread
-void TrafficLight::cycleThroughPhases() {
+void TrafficLight::cycleThroughPhases()
+{
     // FP.2a : Implement the function with an infinite loop that measures the
     // time between two loop cycles
     // and toggles the current phase of the traffic light between red and green
@@ -96,7 +104,8 @@ void TrafficLight::cycleThroughPhases() {
             startTime = std::chrono::system_clock::now();
 
             std::default_random_engine generator;
-            cycleDuration = std::chrono::milliseconds{distribution(random_engine)};
+            cycleDuration =
+                std::chrono::milliseconds{distribution(random_engine)};
 
             _queue.send(std::move(_currentPhase));
         }

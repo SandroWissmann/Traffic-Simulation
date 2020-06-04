@@ -17,12 +17,12 @@ class Vehicle;
 // private members.
 
 template <typename T> class MessageQueue {
-  public:
+public:
     MessageQueue() = default;
     T receive();
-    void send(T &&message);
+    void send(T&& message);
 
-  private:
+private:
     std::mutex _mutex;
     std::condition_variable _cond;
     std::deque<T> _messages;
@@ -39,7 +39,7 @@ template <typename T> class MessageQueue {
 enum class TrafficLightPhase { red, green };
 
 class TrafficLight : public TrafficObject {
-  public:
+public:
     // constructor / desctructor
     TrafficLight();
 
@@ -50,7 +50,7 @@ class TrafficLight : public TrafficObject {
     void simulate();
     TrafficLightPhase getCurrentPhase() const;
 
-  private:
+private:
     // typical behaviour methods
     virtual void cycleThroughPhases();
 
